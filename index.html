@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Footprint Analyzer</title>
+</head>
+<body>
+  <h1>Digital Footprint Analyzer</h1>
+  <form id="analyzeForm">
+    <input type="text" id="profileLink" placeholder="Social Media Profile Link" required><br>
+    <input type="text" id="name" placeholder="Your Name" required><br>
+    <input type="text" id="phone" placeholder="Phone Number" required><br>
+    <input type="date" id="dob" required><br>
+    <input type="text" id="country" placeholder="Country" required><br>
+    <button type="submit">Analyze</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    const API_URL = 'https://digital-footprint-api.onrender.com/api/analyze';
+
+    document.getElementById('analyzeForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const profileLink = document.getElementById('profileLink').value;
+      const personalInfo = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        dob: document.getElementById('dob').value,
+        country: document.getElementById('country').value
+      };
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ profileLink, personalInfo })
+      });
+
+      const data = await response.json();
+      document.getElementById('result').innerHTML = `
+        <h2>Risk Analysis</h2>
+        <p>Similarity: ${data.similarityPct}%</p>
+        <p>Risk Level: ${data.risk}</p>
+        <p>Threats: ${data.threats.join(', ')}</p>
+      `;
+    });
+  </script>
+</body>
+</html>
