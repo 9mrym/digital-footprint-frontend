@@ -57,46 +57,6 @@
         <p><strong>Threats:</strong> ${data.threats.join(', ')}</p>
       `;
     });
-    <div id="fixSuggestions" style="margin-top: 20px;">
-    <h3>Fix Suggestions</h3>
-    <ul id="suggestionsList"></ul>
-</div>
-    function generateFixSuggestions(data) {
-        const suggestions = [];
-
-        if (data.phoneNumberPublic) {
-            suggestions.push("Hide your phone number from your social media profiles.");
-        }
-        if (data.birthdatePublic) {
-            suggestions.push("Do not display your full birthdate publicly; only show month and day.");
-        }
-        if (data.usernameMatchesName) {
-            suggestions.push("Use a username that doesn’t match your full real name.");
-        }
-        if (data.locationPublic) {
-            suggestions.push("Remove exact location info from your public profile.");
-        }
-        if (suggestions.length === 0) {
-            suggestions.push("Your footprint looks good. No major exposures found.");
-        }
-
-        const suggestionsList = document.getElementById('suggestionsList');
-        suggestionsList.innerHTML = "";
-        suggestions.forEach(suggestion => {
-            const li = document.createElement('li');
-            li.textContent = suggestion;
-            suggestionsList.appendChild(li);
-        });
-    }
-
-    // Dummy Data for testing:
-    const dummyData = {
-        phoneNumberPublic: true,
-        birthdatePublic: true,
-        usernameMatchesName: false,
-        locationPublic: true
-    };
-    generateFixSuggestions(dummyData);
   </script>  
 </body>
 </html>
